@@ -9,6 +9,8 @@ import { viteSingleFile } from 'vite-plugin-singlefile'
 // - 断网双击 dist/index.html 即可运行
 export default defineConfig({
   plugins: [vue(), viteSingleFile()],
+  // 监控页用内联样本，避免旧设备模型及其本地数据被复制到监控产物。
+  publicDir: false,
   // .glb 不在 Vite 默认资产类型里：不声明会被 rollup 当 JS 解析（直接 import 报
   // Unexpected character '\0'）。声明后 ?url import 走 asset 管线，配合下方
   // assetsInlineLimit 内联成 data URI（D-004 A 案：单文件 file:// 双击可跑）

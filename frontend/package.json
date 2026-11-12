@@ -3,13 +3,13 @@
   "private": true,
   "version": "0.1.0",
   "type": "module",
-  "description": "完井措施决策四幕演示站（纯静态 · 离线单文件 · 只读 bundle.json）",
+  "description": "油田单井作业监控原型（离线模拟回放）",
   "scripts": {
     "dev": "vite",
     "typecheck": "vue-tsc --noEmit",
     "build": "node tools/build.mjs",
-    "smoke": "node tools/smoke.mjs",
-    "acceptance": "node tools/verify.mjs",
+    "smoke": "node tools/verify-monitor.mjs",
+    "acceptance": "npm run smoke",
     "verify": "npm run typecheck && npm run build && npm run acceptance"
   },
   "dependencies": {
