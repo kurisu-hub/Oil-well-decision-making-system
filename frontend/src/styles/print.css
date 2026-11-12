@@ -1,0 +1,36 @@
+/* A4 报告打印样式（window.print()） */
+@media print {
+  @page { size: A4; margin: 15mm; }
+
+  html, body, #app { height: auto !important; overflow: visible !important; }
+  body { background: #fff !important; color: #111 !important; font-size: 11pt; }
+
+  .no-print, .no-print * { display: none !important; }
+
+  .report {
+    display: block !important;
+    padding: 0 !important;
+    background: #fff !important;
+    color: #111 !important;
+  }
+
+  .report h1 { font-size: 18pt; margin: 0 0 4pt; }
+  .report h2 { font-size: 13pt; margin: 14pt 0 6pt; border-bottom: 1px solid #999; padding-bottom: 3pt; }
+  .report .muted, .report .small { color: #444 !important; }
+  .report .panel,
+  .report .badge,
+  .report .kpi {
+    background: #fff !important;
+    border-color: #bbb !important;
+    color: #111 !important;
+    box-shadow: none !important;
+  }
+  .report .badge { border: 1px solid #666 !important; }
+  .report table.grid th, .report table.grid td { border-bottom: 1px solid #bbb !important; color: #111 !important; }
+  .report .panel { break-inside: avoid; page-break-inside: avoid; }
+  .report .page-break { break-before: page; page-break-before: always; }
+  .report .na { color: #666 !important; }
+
+  .sign-row { margin-top: 24pt; display: flex; gap: 32pt; }
+  .sign-row div { flex: 1; border-top: 1px solid #333; padding-top: 4pt; font-size: 10pt; }
+}

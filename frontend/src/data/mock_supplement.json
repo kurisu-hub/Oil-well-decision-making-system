@@ -1,0 +1,254 @@
+{
+  "schema_version": "1.0",
+  "source": "illustrative",
+  "note": "本文件是【示意补充数据】，仅为前端联调与答辩演示存在。主 mock_bundle.json 未被修改（逐字节一致）。real 模式下本文件【不加载】，对应区块显示“暂无”。所有条目 source=illustrative，UI 必打“示意”角标。",
+  "illustrative_well_ids": ["W004"],
+  "illustrative_blocks": ["learning_curve", "backtest", "ablation", "protocol"],
+
+  "wells": [
+    {
+      "well_id": "W004",
+      "name": "Weld-004",
+      "county": "Weld",
+      "formation": "Codell",
+      "api": "05-123-00004-00",
+      "anchor": 0.9,
+      "bucket": "低产(<1)",
+      "current_oil": 0.8,
+      "value_npv": -3.0,
+      "value_oil": 45.0,
+      "roi": -0.35,
+      "confidence": 0.31,
+      "state": "gray",
+      "uncertainty": {
+        "aleatoric": 60,
+        "data": 75,
+        "model": 45,
+        "economic": 35
+      },
+      "evidence": {
+        "similar_ids": ["E011", "E012", "E013"],
+        "features": [
+          { "name": "锚点", "value": "0.9 t/d", "direction": "down" },
+          { "name": "压前产液斜率", "value": "-0.6", "direction": "down" },
+          { "name": "上隔层厚度", "value": "4 m", "direction": "down" }
+        ]
+      },
+      "data_gaps": ["缺有效厚度与渗透率", "邻井措施记录不全，无法对齐时间"],
+      "recommended_action": "不压",
+      "passport_ids": ["p_anchor_w004", "p_value_w004", "p_conf_w004"],
+      "available": true
+    }
+  ],
+
+  "curves": [
+    {
+      "well_id": "W004",
+      "event_month": "2025-07",
+      "history": [
+        { "month": "2025-01", "oil": 1.1 },
+        { "month": "2025-02", "oil": 1.0 },
+        { "month": "2025-03", "oil": 0.9 },
+        { "month": "2025-04", "oil": 0.8 },
+        { "month": "2025-05", "oil": 0.9 },
+        { "month": "2025-06", "oil": 0.9 }
+      ],
+      "baseline": [
+        { "month": "2025-07", "oil": 0.8 },
+        { "month": "2025-08", "oil": 0.75 },
+        { "month": "2025-09", "oil": 0.7 },
+        { "month": "2025-10", "oil": 0.65 },
+        { "month": "2025-11", "oil": 0.6 },
+        { "month": "2025-12", "oil": 0.55 },
+        { "month": "2026-01", "oil": 0.5 },
+        { "month": "2026-02", "oil": 0.46 },
+        { "month": "2026-03", "oil": 0.42 },
+        { "month": "2026-04", "oil": 0.38 },
+        { "month": "2026-05", "oil": 0.34 },
+        { "month": "2026-06", "oil": 0.3 }
+      ],
+      "prediction": [
+        { "month": "2025-07", "oil": 0.9, "lo": 0.2, "hi": 1.7 },
+        { "month": "2025-08", "oil": 1.3, "lo": 0.3, "hi": 2.4 },
+        { "month": "2025-09", "oil": 1.4, "lo": 0.3, "hi": 2.6 },
+        { "month": "2025-10", "oil": 1.3, "lo": 0.3, "hi": 2.4 },
+        { "month": "2025-11", "oil": 1.2, "lo": 0.2, "hi": 2.2 },
+        { "month": "2025-12", "oil": 1.1, "lo": 0.2, "hi": 2.0 },
+        { "month": "2026-01", "oil": 1.0, "lo": 0.2, "hi": 1.9 },
+        { "month": "2026-02", "oil": 0.9, "lo": 0.2, "hi": 1.7 },
+        { "month": "2026-03", "oil": 0.85, "lo": 0.15, "hi": 1.6 },
+        { "month": "2026-04", "oil": 0.8, "lo": 0.15, "hi": 1.5 },
+        { "month": "2026-05", "oil": 0.75, "lo": 0.1, "hi": 1.4 },
+        { "month": "2026-06", "oil": 0.7, "lo": 0.1, "hi": 1.3 }
+      ],
+      "break_even": 2.1,
+      "response_lag_months": 2,
+      "available": true
+    }
+  ],
+
+  "similar": [
+    {
+      "well_id": "W004",
+      "items": [
+        {
+          "event_id": "E011",
+          "well_id": "W088",
+          "distance": 0.66,
+          "anchor": 0.8,
+          "actual": [
+            { "month": "2023-03", "oil": 0.9 },
+            { "month": "2023-04", "oil": 1.2 },
+            { "month": "2023-05", "oil": 1.3 },
+            { "month": "2023-06", "oil": 1.1 },
+            { "month": "2023-07", "oil": 0.9 },
+            { "month": "2023-08", "oil": 0.8 }
+          ]
+        },
+        {
+          "event_id": "E012",
+          "well_id": "W094",
+          "distance": 0.73,
+          "anchor": 1.0,
+          "actual": [
+            { "month": "2022-06", "oil": 1.1 },
+            { "month": "2022-07", "oil": 1.5 },
+            { "month": "2022-08", "oil": 1.6 },
+            { "month": "2022-09", "oil": 1.3 },
+            { "month": "2022-10", "oil": 1.1 },
+            { "month": "2022-11", "oil": 0.9 }
+          ]
+        },
+        {
+          "event_id": "E013",
+          "well_id": "W103",
+          "distance": 0.79,
+          "anchor": 0.9,
+          "actual": [
+            { "month": "2024-05", "oil": 1.0 },
+            { "month": "2024-06", "oil": 1.3 },
+            { "month": "2024-07", "oil": 1.4 },
+            { "month": "2024-08", "oil": 1.2 },
+            { "month": "2024-09", "oil": 1.0 },
+            { "month": "2024-10", "oil": 0.85 }
+          ]
+        }
+      ]
+    }
+  ],
+
+  "voi": [
+    {
+      "well_id": "W004",
+      "cost": 2.4,
+      "flip_prob": 0.12,
+      "expected_benefit": 1.5,
+      "net_benefit": -0.9,
+      "recommended": false,
+      "available": true
+    }
+  ],
+
+  "passport": [
+    {
+      "id": "p_anchor_w004",
+      "label": "W004 锚点",
+      "value": "0.9",
+      "unit": "t/d",
+      "formula": "mean(最近 3 个非零月日产油)",
+      "source": "illustrative",
+      "sample_size": 3,
+      "config_id": "SUPPLEMENT-2026-10-26-A",
+      "assumptions": ["示意数据，非实测", "仅为演示第二幕灰象限"],
+      "updated_at": "2026-10-26T10:00:00Z"
+    },
+    {
+      "id": "p_value_w004",
+      "label": "W004 期望 NPV",
+      "value": "-3.0",
+      "unit": "万元",
+      "formula": "P × ΔN − C",
+      "source": "illustrative",
+      "sample_size": 1,
+      "config_id": "SUPPLEMENT-2026-10-26-A",
+      "assumptions": ["油价 3800 元/t", "成本 45 万元/口", "示意数据，非实测"],
+      "updated_at": "2026-10-26T10:00:00Z"
+    },
+    {
+      "id": "p_conf_w004",
+      "label": "W004 置信度",
+      "value": "0.31",
+      "unit": "",
+      "formula": "P(NPV>0)",
+      "source": "illustrative",
+      "sample_size": 200,
+      "config_id": "SUPPLEMENT-2026-10-26-A",
+      "assumptions": ["共形区间 + bootstrap", "示意数据，非实测"],
+      "updated_at": "2026-10-26T10:00:00Z"
+    }
+  ],
+
+  "learning_curve": {
+    "available": true,
+    "source": "illustrative",
+    "x_label": "训练井数",
+    "y_label": "sMAPE",
+    "points": [
+      { "n_train": 20, "smape": 0.42, "lo": 0.36, "hi": 0.49 },
+      { "n_train": 40, "smape": 0.33, "lo": 0.28, "hi": 0.39 },
+      { "n_train": 60, "smape": 0.27, "lo": 0.23, "hi": 0.32 },
+      { "n_train": 90, "smape": 0.23, "lo": 0.19, "hi": 0.27 },
+      { "n_train": 120, "smape": 0.21, "lo": 0.18, "hi": 0.25 },
+      { "n_train": 160, "smape": 0.19, "lo": 0.16, "hi": 0.23 }
+    ]
+  },
+
+  "backtest": {
+    "available": true,
+    "source": "illustrative",
+    "items": [
+      { "period": "2023H1", "system": 410, "actual": 372, "expert": 395 },
+      { "period": "2023H2", "system": 388, "actual": 401, "expert": 360 },
+      { "period": "2024H1", "system": 452, "actual": 430, "expert": 468 },
+      { "period": "2024H2", "system": 421, "actual": 415, "expert": 402 },
+      { "period": "2025H1", "system": 463, "actual": 447, "expert": 441 }
+    ],
+    "unit": "t（半年增油）"
+  },
+
+  "ablation": {
+    "available": true,
+    "source": "illustrative",
+    "label": "规律消融（ρ 开/关）",
+    "variants": [
+      { "id": "full", "label": "完整模型", "rho_on": true, "smape": 0.21, "hit_rate": 0.67 },
+      { "id": "no_rho", "label": "关闭 ρ", "rho_on": false, "smape": 0.29, "hit_rate": 0.5 },
+      { "id": "no_similar", "label": "关闭相似井", "rho_on": true, "smape": 0.26, "hit_rate": 0.55 },
+      { "id": "no_conformal", "label": "关闭共形区间", "rho_on": true, "smape": 0.22, "hit_rate": 0.6 }
+    ]
+  },
+
+  "protocol": {
+    "available": true,
+    "source": "illustrative",
+    "rules": [
+      { "id": "R1", "title": "事件定义可复现", "status": "pass", "detail": "事件表由 FracFocus/COGIS 索引生成，附 doc_id 可回溯" },
+      { "id": "R2", "title": "前史 ≥6 个非零月", "status": "pass", "detail": "锚点必须有 6 个月实测，不足者置 available:false" },
+      { "id": "R3", "title": "后史 ≥12 个月", "status": "pass", "detail": "对照曲线至少覆盖压后 12 个月" },
+      { "id": "R4", "title": "禁止用未来信息", "status": "pass", "detail": "特征窗口严格截断在 event_month 之前" },
+      { "id": "R5", "title": "相似井不得跨事件泄漏", "status": "pass", "detail": "相似井检索排除自身事件" },
+      { "id": "R6", "title": "区间用共形校准", "status": "pass", "detail": "90% 区间覆盖率在留出集上校准" },
+      { "id": "R7", "title": "经济参数集中配置", "status": "pass", "detail": "油价/成本写入 config_id，不散落在代码" },
+      { "id": "R8", "title": "灰区必须显示缺口", "status": "pass", "detail": "data_gaps 非空时决策卡强制标注" },
+      { "id": "R9", "title": "示意数据必打角标", "status": "pass", "detail": "source=illustrative 一律显示“示意”" },
+      { "id": "R10", "title": "指标不可编造", "status": "pass", "detail": "组合指标查表失败即显示“暂无”，不做前端推算" }
+    ],
+    "qc": [
+      { "stage": "原始井-月", "n_in": 1148485, "n_out": 1148485 },
+      { "stage": "事件池", "n_in": 11121, "n_out": 11121 },
+      { "stage": "前史充足", "n_in": 11121, "n_out": 179 },
+      { "stage": "后史完整", "n_in": 179, "n_out": 179 },
+      { "stage": "进入建模", "n_in": 179, "n_out": 179 }
+    ]
+  }
+}

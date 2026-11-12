@@ -1,0 +1,612 @@
+{
+  "schema_version": "1.0",
+  "meta": {
+    "dataset_id": "mock-weld-3-v1",
+    "generated_at": "2026-10-26T10:00:00Z",
+    "data_mode": "synthetic",
+    "model_version": "anbm+lsdrt-v2+conformal-v1",
+    "config_id": "MOCK-2026-10-26-A",
+    "source": "COGCC/ECMC + FracFocus（mock，仅前端联调）",
+    "n_wells": 3,
+    "n_events": 5,
+    "units": {
+      "oil": "t/d",
+      "money": "万元"
+    },
+    "caveats": [
+      "mock 数据，仅用于前端联调，不是实测结果",
+      "公开数据为常规水力改造，不是化学驱",
+      "单区块、小样本；区间宽是任务固有不确定性"
+    ]
+  },
+  "wells": [
+    {
+      "well_id": "W001",
+      "name": "Weld-001",
+      "county": "Weld",
+      "formation": "Niobrara",
+      "api": "05-123-00001-00",
+      "anchor": 2.4,
+      "bucket": "中低产(1-3)",
+      "current_oil": 2.2,
+      "value_npv": 68.0,
+      "value_oil": 420.0,
+      "roi": 1.52,
+      "confidence": 0.82,
+      "state": "green",
+      "uncertainty": {
+        "aleatoric": 45,
+        "data": 20,
+        "model": 15,
+        "economic": 20
+      },
+      "evidence": {
+        "similar_ids": ["E003", "E005", "E008"],
+        "features": [
+          { "name": "锚点", "value": "2.4 t/d", "direction": "up" },
+          { "name": "压前产液斜率", "value": "+0.8", "direction": "up" },
+          { "name": "上隔层厚度", "value": "12 m", "direction": "neutral" }
+        ]
+      },
+      "data_gaps": [],
+      "recommended_action": "压",
+      "passport_ids": ["p_anchor_w001", "p_value_w001", "p_conf_w001"],
+      "available": true
+    },
+    {
+      "well_id": "W002",
+      "name": "Weld-002",
+      "county": "Weld",
+      "formation": "Codell",
+      "api": "05-123-00002-00",
+      "anchor": 1.6,
+      "bucket": "中低产(1-3)",
+      "current_oil": 1.5,
+      "value_npv": 42.0,
+      "value_oil": 310.0,
+      "roi": 0.93,
+      "confidence": 0.48,
+      "state": "yellow",
+      "uncertainty": {
+        "aleatoric": 55,
+        "data": 70,
+        "model": 40,
+        "economic": 30
+      },
+      "evidence": {
+        "similar_ids": ["E002", "E006", "E009"],
+        "features": [
+          { "name": "锚点", "value": "1.6 t/d", "direction": "up" },
+          { "name": "压前产液斜率", "value": "-0.3", "direction": "down" },
+          { "name": "上隔层厚度", "value": "6 m", "direction": "down" }
+        ]
+      },
+      "data_gaps": ["补 3 口井的渗透率/有效厚度", "确认邻井措施时间"],
+      "recommended_action": "补资料",
+      "passport_ids": ["p_anchor_w002", "p_value_w002", "p_conf_w002"],
+      "available": true
+    },
+    {
+      "well_id": "W003",
+      "name": "Weld-003",
+      "county": "Weld",
+      "formation": "Niobrara",
+      "api": "05-123-00003-00",
+      "anchor": 6.8,
+      "bucket": "高产(>=6)",
+      "current_oil": 6.5,
+      "value_npv": -8.0,
+      "value_oil": 60.0,
+      "roi": -0.18,
+      "confidence": 0.78,
+      "state": "red",
+      "uncertainty": {
+        "aleatoric": 35,
+        "data": 15,
+        "model": 10,
+        "economic": 20
+      },
+      "evidence": {
+        "similar_ids": ["E001", "E004", "E007"],
+        "features": [
+          { "name": "锚点", "value": "6.8 t/d", "direction": "down" },
+          { "name": "压前产液斜率", "value": "-0.1", "direction": "neutral" },
+          { "name": "上隔层厚度", "value": "18 m", "direction": "up" }
+        ]
+      },
+      "data_gaps": [],
+      "recommended_action": "不压",
+      "passport_ids": ["p_anchor_w003", "p_value_w003", "p_conf_w003"],
+      "available": true
+    }
+  ],
+  "curves": [
+    {
+      "well_id": "W001",
+      "event_month": "2025-07",
+      "history": [
+        { "month": "2025-01", "oil": 2.6 },
+        { "month": "2025-02", "oil": 2.5 },
+        { "month": "2025-03", "oil": 2.4 },
+        { "month": "2025-04", "oil": 2.3 },
+        { "month": "2025-05", "oil": 2.4 },
+        { "month": "2025-06", "oil": 2.4 }
+      ],
+      "baseline": [
+        { "month": "2025-07", "oil": 2.3 },
+        { "month": "2025-08", "oil": 2.2 },
+        { "month": "2025-09", "oil": 2.1 },
+        { "month": "2025-10", "oil": 2.0 },
+        { "month": "2025-11", "oil": 1.9 },
+        { "month": "2025-12", "oil": 1.8 },
+        { "month": "2026-01", "oil": 1.7 },
+        { "month": "2026-02", "oil": 1.6 },
+        { "month": "2026-03", "oil": 1.5 },
+        { "month": "2026-04", "oil": 1.4 },
+        { "month": "2026-05", "oil": 1.3 },
+        { "month": "2026-06", "oil": 1.2 }
+      ],
+      "prediction": [
+        { "month": "2025-07", "oil": 2.8, "lo": 1.3, "hi": 4.4 },
+        { "month": "2025-08", "oil": 4.6, "lo": 2.0, "hi": 7.2 },
+        { "month": "2025-09", "oil": 5.1, "lo": 2.2, "hi": 8.0 },
+        { "month": "2025-10", "oil": 4.8, "lo": 2.0, "hi": 7.6 },
+        { "month": "2025-11", "oil": 4.4, "lo": 1.8, "hi": 7.0 },
+        { "month": "2025-12", "oil": 4.0, "lo": 1.6, "hi": 6.4 },
+        { "month": "2026-01", "oil": 3.7, "lo": 1.4, "hi": 6.0 },
+        { "month": "2026-02", "oil": 3.4, "lo": 1.3, "hi": 5.5 },
+        { "month": "2026-03", "oil": 3.1, "lo": 1.2, "hi": 5.0 },
+        { "month": "2026-04", "oil": 2.9, "lo": 1.1, "hi": 4.7 },
+        { "month": "2026-05", "oil": 2.7, "lo": 1.0, "hi": 4.4 },
+        { "month": "2026-06", "oil": 2.5, "lo": 0.9, "hi": 4.1 }
+      ],
+      "break_even": 2.1,
+      "response_lag_months": 2,
+      "available": true
+    },
+    {
+      "well_id": "W002",
+      "event_month": "2025-07",
+      "history": [
+        { "month": "2025-01", "oil": 1.8 },
+        { "month": "2025-02", "oil": 1.7 },
+        { "month": "2025-03", "oil": 1.6 },
+        { "month": "2025-04", "oil": 1.5 },
+        { "month": "2025-05", "oil": 1.6 },
+        { "month": "2025-06", "oil": 1.6 }
+      ],
+      "baseline": [
+        { "month": "2025-07", "oil": 1.5 },
+        { "month": "2025-08", "oil": 1.4 },
+        { "month": "2025-09", "oil": 1.3 },
+        { "month": "2025-10", "oil": 1.2 },
+        { "month": "2025-11", "oil": 1.1 },
+        { "month": "2025-12", "oil": 1.0 },
+        { "month": "2026-01", "oil": 0.9 },
+        { "month": "2026-02", "oil": 0.8 },
+        { "month": "2026-03", "oil": 0.7 },
+        { "month": "2026-04", "oil": 0.6 },
+        { "month": "2026-05", "oil": 0.5 },
+        { "month": "2026-06", "oil": 0.4 }
+      ],
+      "prediction": [
+        { "month": "2025-07", "oil": 1.7, "lo": 0.4, "hi": 3.0 },
+        { "month": "2025-08", "oil": 2.6, "lo": 0.6, "hi": 4.6 },
+        { "month": "2025-09", "oil": 2.9, "lo": 0.7, "hi": 5.1 },
+        { "month": "2025-10", "oil": 2.7, "lo": 0.6, "hi": 4.8 },
+        { "month": "2025-11", "oil": 2.5, "lo": 0.5, "hi": 4.5 },
+        { "month": "2025-12", "oil": 2.3, "lo": 0.5, "hi": 4.1 },
+        { "month": "2026-01", "oil": 2.1, "lo": 0.4, "hi": 3.8 },
+        { "month": "2026-02", "oil": 1.9, "lo": 0.4, "hi": 3.4 },
+        { "month": "2026-03", "oil": 1.7, "lo": 0.3, "hi": 3.1 },
+        { "month": "2026-04", "oil": 1.6, "lo": 0.3, "hi": 2.9 },
+        { "month": "2026-05", "oil": 1.5, "lo": 0.3, "hi": 2.7 },
+        { "month": "2026-06", "oil": 1.4, "lo": 0.2, "hi": 2.6 }
+      ],
+      "break_even": 2.1,
+      "response_lag_months": 2,
+      "available": true
+    },
+    {
+      "well_id": "W003",
+      "event_month": "2025-07",
+      "history": [
+        { "month": "2025-01", "oil": 7.2 },
+        { "month": "2025-02", "oil": 7.0 },
+        { "month": "2025-03", "oil": 6.9 },
+        { "month": "2025-04", "oil": 6.7 },
+        { "month": "2025-05", "oil": 6.8 },
+        { "month": "2025-06", "oil": 6.8 }
+      ],
+      "baseline": [
+        { "month": "2025-07", "oil": 6.6 },
+        { "month": "2025-08", "oil": 6.4 },
+        { "month": "2025-09", "oil": 6.2 },
+        { "month": "2025-10", "oil": 6.0 },
+        { "month": "2025-11", "oil": 5.8 },
+        { "month": "2025-12", "oil": 5.6 },
+        { "month": "2026-01", "oil": 5.4 },
+        { "month": "2026-02", "oil": 5.2 },
+        { "month": "2026-03", "oil": 5.0 },
+        { "month": "2026-04", "oil": 4.8 },
+        { "month": "2026-05", "oil": 4.6 },
+        { "month": "2026-06", "oil": 4.4 }
+      ],
+      "prediction": [
+        { "month": "2025-07", "oil": 6.9, "lo": 3.4, "hi": 10.4 },
+        { "month": "2025-08", "oil": 7.2, "lo": 3.5, "hi": 10.9 },
+        { "month": "2025-09", "oil": 7.0, "lo": 3.4, "hi": 10.6 },
+        { "month": "2025-10", "oil": 6.8, "lo": 3.3, "hi": 10.3 },
+        { "month": "2025-11", "oil": 6.6, "lo": 3.2, "hi": 10.0 },
+        { "month": "2025-12", "oil": 6.4, "lo": 3.1, "hi": 9.7 },
+        { "month": "2026-01", "oil": 6.2, "lo": 3.0, "hi": 9.4 },
+        { "month": "2026-02", "oil": 6.0, "lo": 2.9, "hi": 9.1 },
+        { "month": "2026-03", "oil": 5.8, "lo": 2.8, "hi": 8.8 },
+        { "month": "2026-04", "oil": 5.6, "lo": 2.7, "hi": 8.5 },
+        { "month": "2026-05", "oil": 5.4, "lo": 2.6, "hi": 8.2 },
+        { "month": "2026-06", "oil": 5.2, "lo": 2.5, "hi": 7.9 }
+      ],
+      "break_even": 2.1,
+      "response_lag_months": 1,
+      "available": true
+    }
+  ],
+  "similar": [
+    {
+      "well_id": "W001",
+      "items": [
+        {
+          "event_id": "E003",
+          "well_id": "W031",
+          "distance": 0.42,
+          "anchor": 2.2,
+          "actual": [
+            { "month": "2024-01", "oil": 2.9 },
+            { "month": "2024-02", "oil": 4.1 },
+            { "month": "2024-03", "oil": 4.6 },
+            { "month": "2024-04", "oil": 4.2 },
+            { "month": "2024-05", "oil": 3.8 },
+            { "month": "2024-06", "oil": 3.5 }
+          ]
+        },
+        {
+          "event_id": "E005",
+          "well_id": "W052",
+          "distance": 0.55,
+          "anchor": 2.5,
+          "actual": [
+            { "month": "2024-04", "oil": 3.1 },
+            { "month": "2024-05", "oil": 4.4 },
+            { "month": "2024-06", "oil": 4.8 },
+            { "month": "2024-07", "oil": 4.3 },
+            { "month": "2024-08", "oil": 3.9 },
+            { "month": "2024-09", "oil": 3.6 }
+          ]
+        },
+        {
+          "event_id": "E008",
+          "well_id": "W071",
+          "distance": 0.61,
+          "anchor": 2.3,
+          "actual": [
+            { "month": "2023-07", "oil": 2.7 },
+            { "month": "2023-08", "oil": 3.9 },
+            { "month": "2023-09", "oil": 4.2 },
+            { "month": "2023-10", "oil": 3.8 },
+            { "month": "2023-11", "oil": 3.4 },
+            { "month": "2023-12", "oil": 3.1 }
+          ]
+        }
+      ]
+    },
+    {
+      "well_id": "W002",
+      "items": [
+        {
+          "event_id": "E002",
+          "well_id": "W018",
+          "distance": 0.58,
+          "anchor": 1.7,
+          "actual": [
+            { "month": "2024-02", "oil": 1.9 },
+            { "month": "2024-03", "oil": 2.8 },
+            { "month": "2024-04", "oil": 3.1 },
+            { "month": "2024-05", "oil": 2.7 },
+            { "month": "2024-06", "oil": 2.4 },
+            { "month": "2024-07", "oil": 2.1 }
+          ]
+        },
+        {
+          "event_id": "E006",
+          "well_id": "W063",
+          "distance": 0.64,
+          "anchor": 1.5,
+          "actual": [
+            { "month": "2023-05", "oil": 1.6 },
+            { "month": "2023-06", "oil": 2.3 },
+            { "month": "2023-07", "oil": 2.5 },
+            { "month": "2023-08", "oil": 2.2 },
+            { "month": "2023-09", "oil": 2.0 },
+            { "month": "2023-10", "oil": 1.8 }
+          ]
+        },
+        {
+          "event_id": "E009",
+          "well_id": "W077",
+          "distance": 0.71,
+          "anchor": 1.8,
+          "actual": [
+            { "month": "2022-09", "oil": 2.1 },
+            { "month": "2022-10", "oil": 3.0 },
+            { "month": "2022-11", "oil": 3.3 },
+            { "month": "2022-12", "oil": 2.9 },
+            { "month": "2023-01", "oil": 2.5 },
+            { "month": "2023-02", "oil": 2.2 }
+          ]
+        }
+      ]
+    },
+    {
+      "well_id": "W003",
+      "items": [
+        {
+          "event_id": "E001",
+          "well_id": "W009",
+          "distance": 0.37,
+          "anchor": 7.1,
+          "actual": [
+            { "month": "2024-03", "oil": 7.3 },
+            { "month": "2024-04", "oil": 7.1 },
+            { "month": "2024-05", "oil": 6.8 },
+            { "month": "2024-06", "oil": 6.6 },
+            { "month": "2024-07", "oil": 6.3 },
+            { "month": "2024-08", "oil": 6.0 }
+          ]
+        },
+        {
+          "event_id": "E004",
+          "well_id": "W044",
+          "distance": 0.49,
+          "anchor": 6.5,
+          "actual": [
+            { "month": "2023-08", "oil": 6.7 },
+            { "month": "2023-09", "oil": 6.5 },
+            { "month": "2023-10", "oil": 6.2 },
+            { "month": "2023-11", "oil": 6.0 },
+            { "month": "2023-12", "oil": 5.8 },
+            { "month": "2024-01", "oil": 5.5 }
+          ]
+        },
+        {
+          "event_id": "E007",
+          "well_id": "W068",
+          "distance": 0.53,
+          "anchor": 6.9,
+          "actual": [
+            { "month": "2022-11", "oil": 7.0 },
+            { "month": "2022-12", "oil": 6.8 },
+            { "month": "2023-01", "oil": 6.5 },
+            { "month": "2023-02", "oil": 6.3 },
+            { "month": "2023-03", "oil": 6.1 },
+            { "month": "2023-04", "oil": 5.9 }
+          ]
+        }
+      ]
+    }
+  ],
+  "portfolio": {
+    "points": [
+      {
+        "budget": 135,
+        "risk": 0.3,
+        "objective": "npv",
+        "selected": ["W001", "W002", "W003"],
+        "expected_oil": 790.0,
+        "expected_npv": 102.0,
+        "loss_prob": 0.22,
+        "cvar": -18.0,
+        "hit_rate": 0.67,
+        "regret": 12.0
+      },
+      {
+        "budget": 90,
+        "risk": 0.2,
+        "objective": "npv",
+        "selected": ["W001", "W002"],
+        "expected_oil": 730.0,
+        "expected_npv": 110.0,
+        "loss_prob": 0.18,
+        "cvar": -12.0,
+        "hit_rate": 0.5,
+        "regret": 8.0
+      },
+      {
+        "budget": 45,
+        "risk": 0.1,
+        "objective": "npv",
+        "selected": ["W001"],
+        "expected_oil": 420.0,
+        "expected_npv": 68.0,
+        "loss_prob": 0.08,
+        "cvar": -5.0,
+        "hit_rate": 1.0,
+        "regret": 0.0
+      }
+    ],
+    "strategies": [
+      {
+        "id": "ai",
+        "label": "AI 组合",
+        "selected": ["W001", "W002"],
+        "expected_oil": 730.0,
+        "expected_npv": 110.0,
+        "loss_prob": 0.18,
+        "hit_rate": 0.5,
+        "regret": 8.0
+      },
+      {
+        "id": "expert",
+        "label": "老师傅（按产量）",
+        "selected": ["W003", "W001"],
+        "expected_oil": 480.0,
+        "expected_npv": 60.0,
+        "loss_prob": 0.28,
+        "hit_rate": 0.5,
+        "regret": 42.0
+      },
+      {
+        "id": "history",
+        "label": "历史实际做法",
+        "selected": ["W002", "W003"],
+        "expected_oil": 370.0,
+        "expected_npv": 34.0,
+        "loss_prob": 0.35,
+        "hit_rate": 0.0,
+        "regret": 68.0
+      },
+      {
+        "id": "random",
+        "label": "随机组合（期望）",
+        "selected": ["W001", "W003"],
+        "expected_oil": 480.0,
+        "expected_npv": 60.0,
+        "loss_prob": 0.3,
+        "hit_rate": 0.33,
+        "regret": 45.0
+      }
+    ],
+    "frontier": [
+      { "risk": 0.08, "npv": 68.0, "objective": "npv" },
+      { "risk": 0.18, "npv": 110.0, "objective": "npv" },
+      { "risk": 0.22, "npv": 102.0, "objective": "npv" }
+    ],
+    "available": true
+  },
+  "voi": [
+    {
+      "well_id": "W001",
+      "cost": 2.4,
+      "flip_prob": 0.05,
+      "expected_benefit": 1.0,
+      "net_benefit": -1.4,
+      "recommended": false,
+      "available": true
+    },
+    {
+      "well_id": "W002",
+      "cost": 2.4,
+      "flip_prob": 0.68,
+      "expected_benefit": 18.0,
+      "net_benefit": 15.6,
+      "recommended": true,
+      "available": true
+    },
+    {
+      "well_id": "W003",
+      "cost": 2.4,
+      "flip_prob": 0.03,
+      "expected_benefit": 0.5,
+      "net_benefit": -1.9,
+      "recommended": false,
+      "available": true
+    }
+  ],
+  "passport": [
+    {
+      "id": "p_anchor_w001",
+      "label": "W001 锚点",
+      "value": "2.4",
+      "unit": "t/d",
+      "formula": "mean(最近 3 个非零月日产油)",
+      "source": "synthetic",
+      "sample_size": 3,
+      "config_id": "MOCK-2026-10-26-A",
+      "assumptions": ["mock 数据，仅联调"],
+      "updated_at": "2026-10-26T10:00:00Z"
+    },
+    {
+      "id": "p_value_w001",
+      "label": "W001 期望 NPV",
+      "value": "68.0",
+      "unit": "万元",
+      "formula": "P × ΔN − C",
+      "source": "synthetic",
+      "sample_size": 1,
+      "config_id": "MOCK-2026-10-26-A",
+      "assumptions": ["油价 3800 元/t", "成本 45 万元/口"],
+      "updated_at": "2026-10-26T10:00:00Z"
+    },
+    {
+      "id": "p_conf_w001",
+      "label": "W001 置信度",
+      "value": "0.82",
+      "unit": "",
+      "formula": "P(NPV>0)",
+      "source": "synthetic",
+      "sample_size": 200,
+      "config_id": "MOCK-2026-10-26-A",
+      "assumptions": ["共形区间 + bootstrap"],
+      "updated_at": "2026-10-26T10:00:00Z"
+    },
+    {
+      "id": "p_anchor_w002",
+      "label": "W002 锚点",
+      "value": "1.6",
+      "unit": "t/d",
+      "formula": "mean(最近 3 个非零月日产油)",
+      "source": "synthetic",
+      "sample_size": 3,
+      "config_id": "MOCK-2026-10-26-A",
+      "assumptions": ["mock 数据，仅联调"],
+      "updated_at": "2026-10-26T10:00:00Z"
+    },
+    {
+      "id": "p_value_w002",
+      "label": "W002 期望 NPV",
+      "value": "42.0",
+      "unit": "万元",
+      "formula": "P × ΔN − C",
+      "source": "synthetic",
+      "sample_size": 1,
+      "config_id": "MOCK-2026-10-26-A",
+      "assumptions": ["油价 3800 元/t", "成本 45 万元/口"],
+      "updated_at": "2026-10-26T10:00:00Z"
+    },
+    {
+      "id": "p_conf_w002",
+      "label": "W002 置信度",
+      "value": "0.48",
+      "unit": "",
+      "formula": "P(NPV>0)",
+      "source": "synthetic",
+      "sample_size": 200,
+      "config_id": "MOCK-2026-10-26-A",
+      "assumptions": ["共形区间 + bootstrap"],
+      "updated_at": "2026-10-26T10:00:00Z"
+    },
+    {
+      "id": "p_anchor_w003",
+      "label": "W003 锚点",
+      "value": "6.8",
+      "unit": "t/d",
+      "formula": "mean(最近 3 个非零月日产油)",
+      "source": "synthetic",
+      "sample_size": 3,
+      "config_id": "MOCK-2026-10-26-A",
+      "assumptions": ["mock 数据，仅联调"],
+      "updated_at": "2026-10-26T10:00:00Z"
+    },
+    {
+      "id": "p_value_w003",
+      "label": "W003 期望 NPV",
+      "value": "-8.0",
+      "unit": "万元",
+      "formula": "P × ΔN − C",
+      "source": "synthetic",
+      "sample_size": 1,
+      "config_id": "MOCK-2026-10-26-A",
+      "assumptions": ["油价 3800 元/t", "成本 45 万元/口"],
+      "updated_at": "2026-10-26T10:00:00Z"
+    }
+  ]
+}

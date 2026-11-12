@@ -1,0 +1,407 @@
+/* ============================================================
+   工程仿真驾驶舱 · 视觉令牌
+   石墨 graphite / 砂岩 sandstone / 氧化铁 iron-oxide / 青灰 blue-gray
+   规则：细线框、网格底、刻度、图号、单位、时间戳、来源角标、等宽数字、非对称
+   禁止：紫蓝渐变、玻璃拟态、霓虹、统一圆角卡片、漂浮球体、粒子背景
+   ============================================================ */
+:root {
+  /* —— 石墨（底 / 面板 / 线）—— */
+  --bg: #101315;
+  --bg-2: #0c0e10;
+  --panel: #171b1e;
+  --panel-2: #1d2226;
+  --panel-3: #23292e;
+  --line: #2c3339;
+  --line-soft: #232a2f;
+  --line-strong: #3d474e;
+
+  /* —— 文字 —— */
+  --text: #dde3e6;
+  --muted: #8a959b;
+  --dim: #69747a;
+
+  /* —— 砂岩（地质 / 地层）—— */
+  --sand: #c9a97e;
+  --sand-2: #a8875f;
+  --sand-dim: #7a6446;
+
+  /* —— 氧化铁（强调 / 负极）—— */
+  --oxide: #b4552d;
+  --oxide-lt: #d0764a;
+  --oxide-dim: #7a3a1f;
+
+  /* —— 青灰（结构 / 中性强调）—— */
+  --steel: #7f9db1;
+  --steel-dim: #4d6474;
+
+  /* —— 状态色（契约 §6.3 语义不变，只做工程化降饱和）—— */
+  --green: #5f9e78;
+  --yellow: #c9a13a;
+  --red: #c1503a;
+  --gray: #6b7680;
+  --accent: #7f9db1;
+  --geology: #c9a97e;
+
+  /* —— 尺寸 —— */
+  /* 62 → 80：顶栏加了第三行「数据版本条」 */
+  --topbar-h: 80px;
+  --rail-w: 316px;
+  --dossier-w: 372px;
+  --radius: 2px;
+
+  /* —— chip（井号/标签片）：字号与高度走变量，全站统一，不逐处写死 ——
+     非投屏 14/22；投屏 16/26（见 .proj） */
+  --chip-fs: 14px;
+  --chip-h: 22px;
+
+  --mono: ui-monospace, 'Cascadia Mono', Consolas, 'SFMono-Regular', Menlo, monospace;
+}
+
+* { box-sizing: border-box; }
+
+html, body, #app { height: 100%; margin: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif;
+  font-size: 13px;
+  line-height: 1.45;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ===================== 工程图元 ===================== */
+
+/* 面板：细线框 + 直角，不做统一圆角卡片 */
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 10px 12px;
+  min-width: 0;
+  overflow: auto;
+  position: relative;
+}
+.panel + .panel { margin-top: 10px; }
+
+/* 图号：每张图左上角 DWG-xxx 编号 + 单位 + 时间戳 */
+.panel-title {
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: .06em;
+  margin: 0 0 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+}
+.panel-title .fig-no {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--dim);
+  border: 1px solid var(--line);
+  padding: 0 5px;
+  line-height: 16px;
+  letter-spacing: .1em;
+  flex: none;
+}
+.panel-title .fig-cap { color: var(--text); min-width: 0; }
+.panel-title .fig-unit {
+  margin-left: auto;
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--dim);
+  flex: none;
+}
+
+/* 分隔线 */
+.rule { height: 1px; background: var(--line); margin: 8px 0; }
+.rule-dbl { height: 3px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); margin: 8px 0; }
+
+/* 网格纸底纹 */
+.paper {
+  background-image:
+    linear-gradient(to right, rgba(255,255,255,.022) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255,255,255,.022) 1px, transparent 1px);
+  background-size: 12px 12px;
+}
+
+/* 刻度行 */
+.ticks { display: flex; font-family: var(--mono); font-size: 9px; color: var(--dim); }
+.ticks > span { flex: 1; text-align: center; border-left: 1px solid var(--line-soft); line-height: 12px; }
+.ticks > span:first-child { border-left: none; }
+
+/* 键值表（左标签 / 右等宽数字） */
+.kv { display: grid; grid-template-columns: auto 1fr; gap: 2px 10px; font-size: 12px; }
+.kv > dt { color: var(--muted); }
+.kv > dd { margin: 0; text-align: right; font-family: var(--mono); font-variant-numeric: tabular-nums; }
+
+/* 来源角标 */
+.stamp {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: .08em;
+  color: var(--dim);
+  border: 1px solid var(--line);
+  padding: 0 5px;
+  line-height: 15px;
+  display: inline-block;
+  white-space: nowrap;
+}
+.stamp-live { color: var(--steel); border-color: rgba(127,157,177,.4); }
+.stamp-assump { color: var(--sand); border-color: rgba(201,169,126,.4); }
+.stamp-illus { color: var(--yellow); border-color: rgba(201,161,58,.45); }
+
+/* ===================== 布局 ===================== */
+
+/* 顶栏 62 / 控制轨 316 / 主区 1fr / 档案 372（1920） */
+.layout {
+  display: grid;
+  grid-template-columns: var(--rail-w) 1fr var(--dossier-w);
+  gap: 10px;
+  padding: 10px;
+  height: calc(100vh - var(--topbar-h));
+  overflow: hidden;
+}
+.layout.two { grid-template-columns: var(--rail-w) 1fr; }
+.layout.one { grid-template-columns: 1fr; }
+
+/* 驾驶舱：控制轨 / 英雄场景 / 决策档案 三栏，底部时间轴通栏 */
+.cockpit {
+  display: grid;
+  grid-template-columns: var(--rail-w) minmax(0, 1fr) var(--dossier-w);
+  grid-template-rows: minmax(0, 1fr) minmax(160px, 200px);
+  grid-template-areas: "rail hero dossier" "rail axis dossier";
+  gap: 10px;
+  padding: 10px;
+  height: calc(100vh - var(--topbar-h));
+  overflow: hidden;
+}
+.cockpit > .area-rail { grid-area: rail; overflow: auto; }
+.cockpit > .area-hero { grid-area: hero; min-width: 0; min-height: 0; overflow: auto; }
+.cockpit > .area-dossier { grid-area: dossier; overflow: auto; }
+.cockpit > .area-axis { grid-area: axis; min-width: 0; min-height: 0; overflow: hidden; }
+
+/* ===================== 排版原子 ===================== */
+
+.num { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+.big { font-size: 26px; font-weight: 600; line-height: 1.1; font-family: var(--mono); font-variant-numeric: tabular-nums; }
+.huge { font-size: 34px; font-weight: 600; line-height: 1.1; font-family: var(--mono); font-variant-numeric: tabular-nums; }
+.muted { color: var(--muted); }
+.dim { color: var(--dim); }
+.small { font-size: 12px; }
+.mono { font-family: var(--mono); }
+
+/* 编号片：字号/高度全站统一（变量定义见 :root），各页面不要再写死 */
+.chip {
+  font-family: var(--mono);
+  font-size: var(--chip-fs);
+  line-height: var(--chip-h);
+  min-height: var(--chip-h);
+  border: 1px solid var(--line-strong);
+  padding: 0 5px;
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+  color: var(--steel);
+}
+
+.row { display: flex; align-items: center; gap: 8px; }
+.col { display: flex; flex-direction: column; gap: 8px; }
+.wrap { flex-wrap: wrap; }
+.grow { flex: 1; min-width: 0; }
+
+/* 状态徽标：直角 + 细边 */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0 6px;
+  border-radius: var(--radius);
+  font-size: 11px;
+  line-height: 17px;
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+.badge-green  { color: var(--green);  border-color: rgba(95,158,120,.5);  background: rgba(95,158,120,.10); }
+.badge-yellow { color: var(--yellow); border-color: rgba(201,161,58,.5);  background: rgba(201,161,58,.10); }
+.badge-red    { color: var(--red);    border-color: rgba(193,80,58,.5);   background: rgba(193,80,58,.10); }
+.badge-gray   { color: var(--gray);   border-color: rgba(107,118,128,.5); background: rgba(107,118,128,.12); }
+.badge-illus  { color: var(--yellow); border-color: rgba(201,161,58,.6);  background: rgba(201,161,58,.14); }
+.badge-accent { color: var(--steel);  border-color: rgba(127,157,177,.5); background: rgba(127,157,177,.10); }
+.badge-pilot  { color: #6fb3ab; border-color: rgba(111,179,171,.5); background: rgba(111,179,171,.12); }
+
+/* 缺失字段统一占位（契约：显示“暂无”，不编造） */
+.na { color: var(--gray); font-style: normal; }
+
+table.grid { width: 100%; border-collapse: collapse; font-size: 12px; }
+table.grid th, table.grid td {
+  text-align: right;
+  padding: 5px 8px;
+  border-bottom: 1px solid var(--line-soft);
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
+}
+table.grid th { color: var(--muted); font-weight: 500; font-family: inherit; }
+table.grid th:first-child, table.grid td:first-child { text-align: left; }
+table.grid tbody tr:hover { background: var(--panel-2); }
+
+.chart { width: 100%; }
+
+/* 控件行：标签 + 等宽读数 + 单位 */
+.ctl { display: flex; flex-direction: column; gap: 3px; }
+.ctl-head { display: flex; align-items: baseline; gap: 6px; font-size: 11px; color: var(--muted); }
+.ctl-head .val { margin-left: auto; font-family: var(--mono); font-size: 12px; color: var(--text); }
+.ctl-head .unit { font-family: var(--mono); font-size: 10px; color: var(--dim); }
+
+/* 1366：收窄控制轨与档案栏 */
+@media (max-width: 1440px) {
+  :root { --rail-w: 268px; --dossier-w: 320px; }
+  .layout { grid-template-columns: var(--rail-w) 1fr; }
+  .layout > .side-right { display: none; }
+  body { font-size: 12px; }
+  .huge { font-size: 26px; }
+  .big { font-size: 21px; }
+  /* 768 高的笔记本：把底部轴行压到 168，把省下的高度还给英雄场景 */
+  .cockpit { grid-template-rows: minmax(0, 1fr) minmax(150px, 168px); }
+}
+/* 矮屏（≤820 高）：进一步压缩，保证英雄场景不被挤没 */
+@media (max-height: 820px) {
+  .cockpit { grid-template-rows: minmax(0, 1fr) minmax(140px, 156px); }
+}
+@media (max-width: 1100px) {
+  .layout, .layout.two { grid-template-columns: 1fr; }
+  .cockpit {
+    grid-template-columns: 1fr;
+    grid-template-areas: "hero" "axis" "rail" "dossier";
+    height: auto;
+    overflow: visible;
+  }
+  .cockpit > .area-rail, .cockpit > .area-dossier, .cockpit > .area-hero { overflow: visible; }
+}
+
+/* ===================== 投屏模式（.proj） =====================
+   由顶栏「投屏」开关切换，状态存 localStorage（断网单文件也能记住）。
+   只放大「看」的东西：字号锁下限、点击目标 ≥24、场景高度给足、
+   1366 下把右栏找回来（网格明细 + 生成 A4 决策报告）。
+   不碰任何数据、不改契约。
+   ============================================================ */
+.proj {
+  /* 14px 是底线：再大，330px 侧栏里 12 个汉字的标题就会一字一行 */
+  font-size: 14px;
+  --topbar-h: 92px;
+  --rail-w: 330px;
+  --dossier-w: 380px;
+  --chip-fs: 16px;
+  --chip-h: 26px;
+}
+.proj .panel { padding: 12px 14px; }
+.proj .panel + .panel { margin-top: 12px; }
+
+/* —— 字号：一律锁下限，不依赖继承 —— */
+.proj .small { font-size: 13px; }
+.proj .big { font-size: 30px; }
+.proj .huge { font-size: 40px; }
+.proj .panel-title { font-size: 13px; margin-bottom: 10px; }
+.proj .panel-title .fig-no,
+.proj .panel-title .fig-unit { font-size: 11px; line-height: 19px; }
+/* 标题里的图名：装不下就整段换到第二行，不省略、不缩字、不 nowrap 挤爆 */
+.proj .panel-title {
+  flex-wrap: wrap;
+  row-gap: 2px;
+  margin-bottom: 8px;
+}
+.proj .panel-title .fig-cap {
+  min-width: 0;
+  white-space: normal;
+  overflow: visible;
+}
+/* KPI 条：1366 投屏时中区只有 ~450px，5 列各 89px 装不下放大后的「低价值低置信」
+   → 3+2 两行排，宁可占两行，也不要一字一行 */
+@media (max-width: 1440px) {
+  .proj .kpi-strip { grid-template-columns: repeat(3, 1fr); }
+  .proj .kpi { min-width: 0; }
+  .proj .kpi-k { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+}
+.proj table.grid { font-size: 13px; }
+.proj table.grid th,
+.proj table.grid td { padding: 7px 10px; }
+.proj .kv { font-size: 13px; }
+.proj .kv.compact { font-size: 12px; line-height: 18px; gap: 3px 10px; }
+.proj .kv.compact .u,
+.proj .kvx .u { font-size: 12px; }
+.proj .stamp { font-size: 12px; line-height: 21px; padding: 0 7px; }
+.proj .badge { font-size: 13px; line-height: 22px; padding: 0 9px; }
+.proj .ticks { font-size: 11px; }
+.proj .ticks > span { line-height: 16px; }
+.proj .ctl-head { font-size: 13px; }
+.proj .ctl-head .val { font-size: 15px; }
+.proj .ctl-head .unit { font-size: 12px; }
+.proj .rd-head { font-size: 14px; }
+.proj .hint { font-size: 12px; }
+
+/* —— 顶栏 —— */
+.proj .title { font-size: 17px; }
+.proj .fig-no { font-size: 12px; line-height: 20px; padding: 1px 7px; }
+.proj .tab { font-size: 14px; padding: 5px 14px; }
+.proj .qty { font-size: 12px; }
+
+/* —— 点击目标：统一 ≥24 ——
+   Naive UI 的 .n-button.n-button--tiny-size 是两个类，优先级高于 `.proj button`，
+   所以要补一条 `.proj button.n-button` 才压得住 */
+.proj button,
+.proj button.n-button,
+.proj .n-button,
+.proj .tab,
+.proj .n-base-selection { min-height: 26px; }
+.proj .row.cand { min-height: 30px; padding: 4px 2px; }
+
+/* —— 场景高度：压轴行，把高度还给英雄场景 ——
+   注：>1440 时图名放得下（单行），不需要补偿；补偿只在 ≤1440 那条媒体查询里做。 */
+.proj .cockpit { grid-template-rows: minmax(0, 1fr) minmax(132px, 162px); }
+
+/* —— 1366 及以下：投屏时把右栏找回来 ——
+   注意方向：投屏是「放大」，所以侧栏绝不能缩到比非投屏更窄（268/320），
+   否则放大后的字会在窄栏里一字一行。这里反而给到 300/340。 */
+@media (max-width: 1440px) {
+  .proj { --rail-w: 296px; --dossier-w: 360px; }
+  .proj .layout { grid-template-columns: var(--rail-w) minmax(0, 1fr) var(--dossier-w); }
+  .proj .layout > .side-right { display: block; }
+  .proj .cockpit { grid-template-columns: var(--rail-w) minmax(0, 1fr) var(--dossier-w); }
+  /* +24px：≤1440 投屏时图名装不下会整段换到第二行（不省略），世界线标题因此变两行。
+     若不补偿，绘图区会被吃掉 ~19px（实测 109→90）。补回来后主图高度 114 > 原 109。 */
+  .proj .cockpit { grid-template-rows: minmax(0, 1fr) minmax(160px, 192px); }
+}
+
+/* —— SVG 内文字：按原字号分档放大 ——
+   SVG 的 font-size 是表现属性，优先级低于任何 CSS 规则，所以这里能直接覆盖 */
+.proj svg text[font-size="8"]  { font-size: 11px; }
+.proj svg text[font-size="9"]  { font-size: 12px; }
+.proj svg text[font-size="10"] { font-size: 13px; }
+.proj svg text[font-size="11"] { font-size: 14px; }
+.proj svg text[font-size="13"] { font-size: 16px; }
+.proj svg g[font-size="8"] { font-size: 11px; }
+.proj svg g[font-size="9"] { font-size: 12px; }
+
+/* 例外：viewBox 固定的图表会整体缩放（1366 投屏下 svg.chart 约 1.8×），
+   字号再叠一层放大就会把坐标轴刻度顶出画布（实测 NPV/增油/ROI/风险 越顶 2px、
+   y 轴「2,215」越左）。这类图靠容器缩放已经够大，不再参与放大。 */
+.proj svg.chart text[font-size="8"],
+.proj svg.chart g[font-size="8"] { font-size: 8px; }
+.proj svg.chart text[font-size="10"] { font-size: 10px; }
+
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-thumb { background: #2b3238; border-radius: 0; }
+::-webkit-scrollbar-track { background: transparent; }
+
+/* —— T05 数字溯源：带 data-prov 的数字可点开护照抽屉 —— */
+[data-prov] {
+  cursor: pointer;
+  border-bottom: 1px dashed #4a5560;
+}
+[data-prov]:hover {
+  border-bottom-color: #7f9db1;
+  background: rgba(127, 157, 177, 0.08);
+}
+/* 打印时去掉交互暗示 */
+@media print { [data-prov] { cursor: default; border-bottom: none; } }

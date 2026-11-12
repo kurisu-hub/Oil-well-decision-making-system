@@ -1,0 +1,34 @@
+{
+  "name": "weld-decision-frontend",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "完井措施决策四幕演示站（纯静态 · 离线单文件 · 只读 bundle.json）",
+  "scripts": {
+    "dev": "vite",
+    "typecheck": "vue-tsc --noEmit",
+    "build": "node tools/build.mjs",
+    "smoke": "node tools/smoke.mjs",
+    "acceptance": "node tools/verify.mjs",
+    "verify": "npm run typecheck && npm run build && npm run acceptance"
+  },
+  "dependencies": {
+    "echarts": "^6.1.0",
+    "naive-ui": "^2.45.3",
+    "pinia": "^4.1.0",
+    "three": "^0.170.0",
+    "vue": "^3.5.44",
+    "vue-router": "^5.4.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/three": "^0.170.0",
+    "@vitejs/plugin-vue": "^6.0.10",
+    "puppeteer-core": "^25.16.0",
+    "terser": "^5.0.0",
+    "typescript": "~5.9.3",
+    "vite": "^7.3.7",
+    "vite-plugin-singlefile": "^2.3.4",
+    "vue-tsc": "^3.3.13"
+  }
+}
