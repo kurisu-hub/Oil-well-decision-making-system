@@ -43,7 +43,8 @@ const grid = raw as {
   price_tiers: PriceTier[]
   cost_tiers: CostTier[]
   budget_tiers: BudgetTier[]
-  self_check: { g2_max_diff_base_vs_bundle: number; g3_combo_identity_diff: number }
+  // 示意配置不重算收益，不带真实网格的自检结果。
+  self_check?: { g2_max_diff_base_vs_bundle: number; g3_combo_identity_diff: number }
   grid: GridCombo[]
 }
 

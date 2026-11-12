@@ -35,12 +35,17 @@ writeDemo('twin_states.json', {
 })
 
 // 只提供控件档位。演示井没有离线重算结果，查不到时沿用页面的缺值逻辑。
+const base = { oil_price_cny_per_t: 3800, oil_density_t_per_m3: 0.85, price_wan_per_m3: 0.323, well_cost_wan: 45 }
 writeDemo('econ_grid.json', {
   version: 'demo',
   generated_at: '示意配置',
-  base: { oil_price_cny_per_t: 3800, oil_density_t_per_m3: 0.85, price_wan_per_m3: 0.323, well_cost_wan: 45 },
-  price_tiers: [3040, 3800, 4560].map((price) => ({ oil_price_cny_per_t: price })),
-  cost_tiers: [36, 45, 54].map((cost) => ({ well_cost_wan: cost })),
-  budget_tiers: [45, 90, 135].map((budget) => ({ budget_wan: budget })),
+  base,
+  price_tiers: [0.8, 1, 1.2].map((mult) => ({
+    mult,
+    oil_price_cny_per_t: base.oil_price_cny_per_t * mult,
+    price_wan_per_m3: Number((base.price_wan_per_m3 * mult).toFixed(4)),
+  })),
+  cost_tiers: [0.8, 1, 1.2].map((mult) => ({ mult, well_cost_wan: base.well_cost_wan * mult })),
+  budget_tiers: [1, 2, 3].map((k) => ({ k_wells: k, budget_wan: base.well_cost_wan * k })),
   grid: [],
 })
